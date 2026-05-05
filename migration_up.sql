@@ -1,4 +1,5 @@
--- CREATE TYPE IF NOT EXISTS resource_type AS ENUM ('guide', 'video', 'exercice', 'projet');
+DROP TYPE IF EXISTS resource_type CASCADE;
+CREATE TYPE resource_type AS ENUM ('guide', 'video', 'exercice', 'projet');
 CREATE TABLE IF NOT EXISTS themes
 (
     id integer ,
@@ -7,4 +8,28 @@ CREATE TABLE IF NOT EXISTS themes
     created_at timestamptz,
     updated_at timestamptz,
     PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS resources
+(
+    id integer ,
+    type resource_type,
+    title text,
+    description text,
+    url text,
+    is_ada boolean,
+    theme_id integer,
+        created_at timestamptz,
+    updated_at timestamptz,
+    PRIMARY KEY (id),
+     CONSTRAINT "key_themes" FOREIGN KEY (theme_id)
+        REFERENCES public.themes (id) MATCH SIMPLE
+);
+CREATE TABLE IF NOT EXISTS resources_skills
+(
+  resources_id integer,
+  skill_id integer,
+         CONSTRAINT "key_resource" FOREIGN KEY (resources_id)
+        REFERENCES public.resources (id) MATCH SIMPLE,
+        CONSTRAINT "key_skill" FOREIGN KEY (skill_id)
+        REFERENCES public.skills (id) MATCH SIMPLE
 );
