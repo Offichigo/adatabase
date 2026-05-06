@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS themes
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     name text,
     description text,
-    created_at timestamptz,
-    updated_at timestamptz,
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (id)
 );
 
@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS resources
     url text,
     is_ada boolean,
     theme_id integer,
-        created_at timestamptz,
-        updated_at timestamptz,
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (id),
      CONSTRAINT "key_themes" FOREIGN KEY (theme_id)
         REFERENCES public.themes (id) MATCH SIMPLE
