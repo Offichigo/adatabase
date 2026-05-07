@@ -1,4 +1,4 @@
---**Recupération des donées
+--**Recupération des données
 
 --**1_Récupérer la liste des thèmes
 SELECT * FROM themes;
